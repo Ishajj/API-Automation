@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.1.2 (Python 3.7.5 on win32)" generated="20200424 02:59:03.617" rpa="false">
+<suite id="s1" name="TC BearerAuthentication" source="C:\Users\I823285\PycharmProjects\APIAutomation\Testcases\TC_BearerAuthentication.robot">
+<test id="s1-t1" name="BearerAuth">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>mysession</arg>
+<arg>${base_url}</arg>
+</arguments>
+<msg timestamp="20200424 02:59:03.740" level="INFO">Creating Session using : alias=mysession, url=https://certtransaction.elementexpress.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200424 02:59:03.740" endtime="20200424 02:59:03.740"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Authorization=${bearer_token}</arg>
+<arg>Content-Type=text/xml</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20200424 02:59:03.741" level="INFO">${headers} = {'Authorization': '"Bearer E4F284BFADA11D01A52508ED7B92FFD7EE0905659F5DED06A4B73FC7739B48A287648801"', 'Content-Type': 'text/xml'}</msg>
+<status status="PASS" starttime="20200424 02:59:03.741" endtime="20200424 02:59:03.741"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>C:/Users/I823285/Desktop/PostXml.xml</arg>
+</arguments>
+<assign>
+<var>${rer_body}</var>
+</assign>
+<msg timestamp="20200424 02:59:03.742" level="INFO" html="yes">Getting file '&lt;a href="file://C:\Users\I823285\Desktop\PostXml.xml"&gt;C:\Users\I823285\Desktop\PostXml.xml&lt;/a&gt;'.</msg>
+<msg timestamp="20200424 02:59:03.742" level="INFO">${rer_body} = &lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/env...</msg>
+<status status="PASS" starttime="20200424 02:59:03.742" endtime="20200424 02:59:03.742"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>mysession</arg>
+<arg>/ data=${rer_body}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp_body}</var>
+</assign>
+<msg timestamp="20200424 02:59:03.744" level="INFO">POST Request using : uri=/ data=&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+  &lt;soap:Body&gt;
+    &lt;CreditCardReturn xmlns="https://transaction.elementexpress.com"&gt;
+      &lt;credentials&gt;
+        &lt;AccountID&gt;string&lt;/AccountID&gt;
+        &lt;AccountToken&gt;string&lt;/AccountToken&gt;
+        &lt;AcceptorID&gt;string&lt;/AcceptorID&gt;
+        &lt;NewAccountToken&gt;string&lt;/NewAccountToken&gt;
+      &lt;/credentials&gt;
+      &lt;application&gt;
+        &lt;ApplicationID&gt;string&lt;/ApplicationID&gt;
+        &lt;ApplicationName&gt;string&lt;/ApplicationName&gt;
+        &lt;ApplicationVersion&gt;string&lt;/ApplicationVersion&gt;
+        &lt;IntegrationType&gt;string&lt;/IntegrationType&gt;
+      &lt;/application&gt;
+      &lt;terminal&gt;
+        &lt;TerminalID&gt;string&lt;/TerminalID&gt;
+        &lt;TerminalType&gt;Unknown or PointOfSale or ECommerce or MOTO or FuelPump or ATM or Voice or Mobile or WebSite&lt;/TerminalType&gt;
+        &lt;CardPresentCode&gt;UseDefault or Unknown or Present or NotPresent&lt;/CardPresentCode&gt;
+        &lt;CardholderPresentCode&gt;UseDefault or Unknown or Present or NotPresent or MailOrder or PhoneOrder or StandingAuth or ECommerce&lt;/CardholderPresentCode&gt;
+        &lt;CardInputCode&gt;UseDefault or Unknown or MagstripeRead or ContactlessMagstripeRead or ManualKeyed or ManualKeyedMagstripeFailure or ChipRead or ContactlessChipRead or ManualKeyedChipReadFailure or MagstripeReadChipReadFailure or MagstripeReadNonTechnicalFallback&lt;/CardInputCode&gt;
+        &lt;CVVPresenceCode&gt;UseDefault or NotProvided or Provided or Illegible or CustomerIllegible&lt;/CVVPresenceCode&gt;
+        &lt;TerminalCapabilityCode&gt;UseDefault or Unknown or NoTerminal or MagstripeReader or ContactlessMagstripeReader or KeyEntered or ChipReader or ContactlessChipReader&lt;/TerminalCapabilityCode&gt;
+        &lt;TerminalEnvironmentCode&gt;UseDefault or NoTerminal or LocalAttended or LocalUnattended or RemoteAttended or RemoteUnattended or ECommerce&lt;/TerminalEnvironmentCode&gt;
+        &lt;MotoECICode&gt;UseDefault or NotUsed or Single or Recurring or Installment or SecureECommerce or NonAuthenticatedSecureTransaction or NonAuthenticatedSecureECommerceTransaction or NonSecureECommerceTransaction or AmericanExpressToken&lt;/MotoECICode&gt;
+        &lt;CVVResponseType&gt;Regular or Extended&lt;/CVVResponseType&gt;
+        &lt;ConsentCode&gt;NotUsed or FaceToFace or Phone or Internet&lt;/ConsentCode&gt;
+        &lt;TerminalSerialNumber&gt;string&lt;/TerminalSerialNumber&gt;
+        &lt;TerminalEncryptionFormat&gt;Default or Format1 or Format2 or Format3 or Format4 or Format5 or Format6 or Format7 or Format8 or Format9 or Format10 or Format11&lt;/TerminalEncryptionFormat&gt;
+        &lt;LaneNumber&gt;string&lt;/LaneNumber&gt;
+        &lt;Model&gt;string&lt;/Model&gt;
+        &lt;EMVKernelVersion&gt;string&lt;/EMVKernelVersion&gt;
+        &lt;StoreCardID&gt;string&lt;/StoreCardID&gt;
+        &lt;StoreCardPassword&gt;string&lt;/StoreCardPassword&gt;
+        &lt;OperatorID&gt;string&lt;/OperatorID&gt;
+      &lt;/terminal&gt;
+      &lt;transaction&gt;
+        &lt;TransactionID&gt;string&lt;/TransactionID&gt;
+        &lt;ClerkNumber&gt;string&lt;/ClerkNumber&gt;
+        &lt;ShiftID&gt;string&lt;/ShiftID&gt;
+        &lt;TransactionAmount&gt;string&lt;/TransactionAmount&gt;
+        &lt;OriginalAuthorizedAmount&gt;string&lt;/OriginalAuthorizedAmount&gt;
+        &lt;TotalAuthorizedAmount&gt;string&lt;/TotalAuthorizedAmount&gt;
+        &lt;SalesTaxAmount&gt;string&lt;/SalesTaxAmount&gt;
+        &lt;TipAmount&gt;string&lt;/TipAmount&gt;
+        &lt;ApprovalNumber&gt;string&lt;/ApprovalNumber&gt;
+        &lt;ReferenceNumber&gt;string&lt;/ReferenceNumber&gt;
+        &lt;TicketNumber&gt;string&lt;/TicketNumber&gt;
+        &lt;ReversalType&gt;System or Full or Partial&lt;/ReversalType&gt;
+        &lt;MarketCode&gt;Default or AutoRental or DirectMarketing or ECommerce or FoodRestaurant or HotelLodging or Petroleum or Retail or QSR or Grocery&lt;/MarketCode&gt;
+        &lt;AcquirerData&gt;string&lt;/AcquirerData&gt;
+        &lt;CashBackAmount&gt;string&lt;/CashBackAmount&gt;
+        &lt;BillPaymentFlag&gt;False or True&lt;/BillPaymentFlag&gt;
+        &lt;DuplicateCheckDisableFlag&gt;False or True&lt;/DuplicateCheckDisableFlag&gt;
+        &lt;DuplicateOverrideFlag&gt;False or True&lt;/DuplicateOverrideFlag&gt;
+        &lt;RecurringFlag&gt;False or True&lt;/RecurringFlag&gt;
+        &lt;CommercialCardCustomerCode&gt;string&lt;/CommercialCardCustomerCode&gt;
+        &lt;ProcessorName&gt;string&lt;/ProcessorName&gt;
+        &lt;TransactionStatus&gt;string&lt;/TransactionStatus&gt;
+        &lt;TransactionStatusCode&gt;string&lt;/TransactionStatusCode&gt;
+        &lt;HostTransactionID&gt;string&lt;/HostTransactionID&gt;
+        &lt;TransactionSetupID&gt;string&lt;/TransactionSetupID&gt;
+        &lt;MerchantVerificationValue&gt;string&lt;/MerchantVerificationValue&gt;
+        &lt;PartialApprovedFlag&gt;False or True&lt;/PartialApprovedFlag&gt;
+        &lt;ApprovedAmount&gt;string&lt;/ApprovedAmount&gt;
+        &lt;CommercialCardResponseCode&gt;string&lt;/CommercialCardResponseCode&gt;
+        &lt;BalanceAmount&gt;string&lt;/BalanceAmount&gt;
+        &lt;BalanceCurrencyCode&gt;string&lt;/BalanceCurrencyCode&gt;
+        &lt;ConvenienceFeeAmount&gt;string&lt;/ConvenienceFeeAmount&gt;
+        &lt;GiftCardStatusCode&gt;string&lt;/GiftCardStatusCode&gt;
+        &lt;BillPayerAccountNumber&gt;string&lt;/BillPayerAccountNumber&gt;
+        &lt;GiftCardBalanceTransferCode&gt;string&lt;/GiftCardBalanceTransferCode&gt;
+        &lt;EMVEncryptionFormat&gt;Default or Format1 or Format2 or Format3 or Format4 or Format5&lt;/EMVEncryptionFormat&gt;
+        &lt;ReversalReason&gt;Unknown or RejectedPartialApproval or Timeout or EditError or MACVerifyError or MACSyncError or EncryptionError or SystemError or PossibleFraud or CardRemoval or ChipDecline or TerminalError&lt;/ReversalReason&gt;
+        &lt;PaymentType&gt;NotUsed or Recurring or Installment or CardHolderInitiated or CredentialsOnFile&lt;/PaymentType&gt;
+        &lt;NetworkTransactionID&gt;string&lt;/NetworkTransactionID&gt;
+        &lt;SubmissionType&gt;NotUsed or Initial or Subsequent or Resubmission or ReAuthorization or DelayedCharges or NoShow&lt;/SubmissionType&gt;
+        &lt;Notes&gt;string&lt;/Notes&gt;
+        &lt;CustomerID&gt;string&lt;/CustomerID&gt;
+      &lt;/transaction&gt;
+      &lt;extendedParameters&gt;
+        &lt;ExtendedParameters&gt;
+          &lt;Key&gt;string&lt;/Key&gt;
+          &lt;Value /&gt;
+        &lt;/ExtendedParameters&gt;
+        &lt;ExtendedParameters&gt;
+          &lt;Key&gt;string&lt;/Key&gt;
+          &lt;Value /&gt;
+        &lt;/ExtendedParameters&gt;
+      &lt;/extendedParameters&gt;
+    &lt;/CreditCardReturn&gt;
+  &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': '"Bearer E4F284BFADA11D01A52508ED7B92FFD7EE0905659F5DED06A4B73FC7739B48A287648801"', 'Content-Type': 'text/xml'} 
+data=None 
+json=None</msg>
+<msg timestamp="20200424 02:59:05.446" level="INFO">c:\users\i823285\pycharmprojects\apiautomation\venv\lib\site-packages\urllib3\connectionpool.py:986: InsecureRequestWarning: Unverified HTTPS request is being made to host 'certtransaction.elementexpress.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20200424 02:59:05.446" level="INFO">${resp_body} = &lt;Response [404]&gt;</msg>
+<status status="PASS" starttime="20200424 02:59:03.743" endtime="20200424 02:59:05.446"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp_body}</arg>
+</arguments>
+<status status="PASS" starttime="20200424 02:59:05.447" endtime="20200424 02:59:05.448"></status>
+</kw>
+<status status="PASS" starttime="20200424 02:59:03.739" endtime="20200424 02:59:05.448" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20200424 02:59:03.619" endtime="20200424 02:59:05.450"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0">Critical Tests</stat>
+<stat pass="1" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" id="s1" name="TC BearerAuthentication">TC BearerAuthentication</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
